@@ -1,0 +1,70 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0487C9E4-E454-4867-9D12-CB2CDC559908}|TicTacToeGame.csproj|c:\\users\\macie\\documents\\github\\onlinetictactoe\\tictactoegame\\gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0487C9E4-E454-4867-9D12-CB2CDC559908}|TicTacToeGame.csproj|solutionrelative:gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0487C9E4-E454-4867-9D12-CB2CDC559908}|TicTacToeGame.csproj|C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0487C9E4-E454-4867-9D12-CB2CDC559908}|TicTacToeGame.csproj|solutionrelative:gameboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0487C9E4-E454-4867-9D12-CB2CDC559908}|TicTacToeGame.csproj|c:\\users\\macie\\documents\\github\\onlinetictactoe\\tictactoegame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0487C9E4-E454-4867-9D12-CB2CDC559908}|TicTacToeGame.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-03T17:59:57.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GameBoard.cs",
+              "DocumentMoniker": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs",
+              "RelativeDocumentMoniker": "GameBoard.cs",
+              "ToolTip": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs",
+              "RelativeToolTip": "GameBoard.cs",
+              "ViewState": "AQIAAFwAAAAAAAAAAAAawH4AAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-03T17:58:12.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameBoard.cs [Projekt]",
+              "DocumentMoniker": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs",
+              "RelativeDocumentMoniker": "GameBoard.cs",
+              "ToolTip": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs [Projekt]",
+              "RelativeToolTip": "GameBoard.cs [Projekt]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-03T17:58:12.844Z",
+              "EditorCaption": " [Projekt]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

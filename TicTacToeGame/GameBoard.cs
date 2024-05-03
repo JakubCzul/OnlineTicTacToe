@@ -74,8 +74,51 @@ namespace TicTacToeGame
                 {
                     MessageBox.Show("X has won the game!", "We have a winner!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+                checkDraw();
             }
         }
+
+        public void reset()
+        {
+            btn1.Text = "";
+            btn2.Text = "";
+            btn3.Text = "";
+            btn4.Text = "";
+            btn5.Text = "";
+            btn6.Text = "";
+            btn7.Text = "";
+            btn8.Text = "";
+            btn9.Text = "";
+            btn1.Enabled = true;
+            btn2.Enabled = true;
+            btn3.Enabled = true;
+            btn4.Enabled = true;
+            btn5.Enabled = true;
+            btn6.Enabled = true;
+            btn7.Enabled = true;
+            btn8.Enabled = true;
+            btn9.Enabled = true;
+            gameBoard = new string[9];
+            currentTurn = 0;
+        }
+
+        public void checkDraw()
+        {
+            int counter = 0;
+            for (int i = 0; i < gameBoard.Length; i++)
+            {
+                if (gameBoard[i] != null)
+                {
+                    counter++;
+                }
+
+                if (counter == 9)
+                {
+                    MessageBox.Show("It's draw!", "No winner in this match", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
 
         private void btn1_Click(object sender, EventArgs e)
         {
@@ -156,6 +199,16 @@ namespace TicTacToeGame
             btn9.Text = gameBoard[8];
             btn9.Enabled = false;
             checkForWinner();
+        }
+
+        private void GameBoard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            reset();
         }
     }
 }

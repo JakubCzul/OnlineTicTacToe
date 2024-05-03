@@ -9,3 +9,13 @@ C:\Users\pbist\OneDrive\Dokumenty\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug
 C:\Users\pbist\OneDrive\Dokumenty\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.CoreCompileInputs.cache
 C:\Users\pbist\OneDrive\Dokumenty\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.exe
 C:\Users\pbist\OneDrive\Dokumenty\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.pdb
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\bin\Debug\TicTacToeGame.exe.config
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\bin\Debug\TicTacToeGame.exe
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\bin\Debug\TicTacToeGame.pdb
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.AssemblyReference.cache
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.GameBoard.resources
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.Properties.Resources.resources
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.GenerateResource.cache
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.CoreCompileInputs.cache
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.exe
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.pdb
