@@ -7,18 +7,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
 
 namespace TicTacToeGame
 {
     public partial class GameBoard : Form
     {
-        public GameBoard()
+        public GameBoard(bool isHost, string ip = null)
         {
             InitializeComponent();
+            MessageRecevier.DoWork += MessageRecevier_DoWork;
+            CheckForIllegalCrossThreadCalls = false;
+
+            if (isHost)
+            {
+                PlayerChar = 'X';
+                OpponentChar = 'O';
+                server = new TcpListener(System.Net.IPAddress.Any, 0);
+                server.Start();
+                socket = server.AcceptSocket();
+            }
+            else 
+            {
+                PlayerChar = 'O';
+                OpponentChar = 'X';
+                try 
+                {
+                    client = new TcpClient(ip, 0);
+                    socket = client.Client;
+                    MessageRecevier.RunWorkerAsync();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Close();
+                }
+            }
+        }
+
+        private void MessageRecevier_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
         }
 
         String[] gameBoard = new string[9];
         int currentTurn = 0;
+        private char PlayerChar;
+        private char OpponentChar;
+        private Socket socket;
+        private BackgroundWorker MessageRecevier = new BackgroundWorker();
+        private TcpListener server = null;
+        private TcpClient client;
 
         public String returnSymbol(int turn)
         {
@@ -31,6 +71,117 @@ namespace TicTacToeGame
                 return "X";
             }
         }
+
+
+        private bool CheckState()
+        {
+            if (btn1.Text == btn2.Text && btn2.Text == btn3.Text && btn3.Text != "")
+            {
+                if (btn1.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+            if (btn4.Text == btn5.Text && btn5.Text == btn6.Text && btn6.Text != "")
+            {
+                if (btn4.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+            if (btn7.Text == btn8.Text && btn8.Text == btn9.Text && btn9.Text != "")
+            {
+                if (btn7.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+
+            if (btn1.Text == btn4.Text && btn4.Text == btn7.Text && btn7.Text != "")
+            {
+                if (btn1.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+            if (btn2.Text == btn5.Text && btn5.Text == btn8.Text && btn8.Text != "")
+            {
+                if (btn2.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+            if (btn3.Text == btn6.Text && btn6.Text == btn9.Text && btn9.Text != "")
+            {
+                if (btn3.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+
+            if (btn1.Text == btn5.Text && btn5.Text == btn9.Text && btn9.Text != "")
+            {
+                if (btn1.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+            if (btn3.Text == btn5.Text && btn5.Text == btn7.Text && btn7.Text != "")
+            {
+                if (btn3.Text[0] == PlayerChar)
+                {
+                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                return true;
+            }
+            return false;
+        }
+
+
+        public bool CheckButtons()
+        {
+            
+        }
+
 
         public void checkForWinner()
         {
@@ -80,24 +231,14 @@ namespace TicTacToeGame
 
         public void reset()
         {
-            btn1.Text = "";
-            btn2.Text = "";
-            btn3.Text = "";
-            btn4.Text = "";
-            btn5.Text = "";
-            btn6.Text = "";
-            btn7.Text = "";
-            btn8.Text = "";
-            btn9.Text = "";
-            btn1.Enabled = true;
-            btn2.Enabled = true;
-            btn3.Enabled = true;
-            btn4.Enabled = true;
-            btn5.Enabled = true;
-            btn6.Enabled = true;
-            btn7.Enabled = true;
-            btn8.Enabled = true;
-            btn9.Enabled = true;
+            foreach (Control control in Controls)
+            {
+                if (control is Button btn)
+                {
+                    btn.Text = "";
+                    btn.Enabled = true;
+                }
+            }
             gameBoard = new string[9];
             currentTurn = 0;
         }
@@ -209,6 +350,25 @@ namespace TicTacToeGame
         private void btnReset_Click(object sender, EventArgs e)
         {
             reset();
+        }
+
+        private void ReceiveMove()
+        {
+            byte[] buffer = new byte[1];
+            socket.Receive(buffer);
+            int index = 0;
+            foreach (Control control in Controls)
+            {
+                if (control is Button btn && index < 9)
+                {
+                    if (buffer[index] == 1)
+                    {
+                        btn.Text = OpponentChar.ToString();
+                    }
+                    index++;
+                }
+            }
+
         }
     }
 }

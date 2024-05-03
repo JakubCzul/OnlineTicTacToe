@@ -22,8 +22,22 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GameBoard.cs",
+              "DocumentMoniker": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs",
+              "RelativeDocumentMoniker": "GameBoard.cs",
+              "ToolTip": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs",
+              "RelativeToolTip": "GameBoard.cs",
+              "ViewState": "AQIAAHoAAAAAAAAAAAAiwIIAAABxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-03T17:58:12.665Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -34,20 +48,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-03T17:59:57.012Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GameBoard.cs",
-              "DocumentMoniker": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs",
-              "RelativeDocumentMoniker": "GameBoard.cs",
-              "ToolTip": "C:\\Users\\macie\\Documents\\GitHub\\OnlineTicTacToe\\TicTacToeGame\\GameBoard.cs",
-              "RelativeToolTip": "GameBoard.cs",
-              "ViewState": "AQIAAFwAAAAAAAAAAAAawH4AAAAkAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-03T17:58:12.665Z",
+              "WhenOpened": "2024-05-03T18:34:32.24Z",
               "EditorCaption": ""
             },
             {
