@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConnectWindow.Designer.cs">
+      <DependentUpon>ConnectWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +60,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ConnectWindow.resx">
+      <DependentUpon>ConnectWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameBoard.resx">
       <DependentUpon>GameBoard.cs</DependentUpon>
     </EmbeddedResource>

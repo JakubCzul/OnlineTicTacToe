@@ -5,40 +5,48 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
 using System.Net.Sockets;
+using System.Reflection.Emit;
 
 namespace TicTacToeGame
 {
     public partial class GameBoard : Form
     {
+
+        private char PlayerChar;
+        private char OpponentChar;
+        private Socket socket;
+        private BackgroundWorker MessageReceiver = new BackgroundWorker();
+        private TcpListener server = null;
+        private TcpClient client;
+
+
         public GameBoard(bool isHost, string ip = null)
         {
             InitializeComponent();
-            MessageRecevier.DoWork += MessageRecevier_DoWork;
+            MessageReceiver.DoWork += MessageReceiver_DoWork;
             CheckForIllegalCrossThreadCalls = false;
 
             if (isHost)
             {
                 PlayerChar = 'X';
                 OpponentChar = 'O';
-                server = new TcpListener(System.Net.IPAddress.Any, 0);
+                server = new TcpListener(System.Net.IPAddress.Any, 5732);
                 server.Start();
                 socket = server.AcceptSocket();
             }
-            else 
+            else
             {
                 PlayerChar = 'O';
                 OpponentChar = 'X';
-                try 
+                try
                 {
-                    client = new TcpClient(ip, 0);
+                    client = new TcpClient(ip, 5732);
                     socket = client.Client;
-                    MessageRecevier.RunWorkerAsync();
+                    MessageReceiver.RunWorkerAsync();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     Close();
@@ -46,190 +54,85 @@ namespace TicTacToeGame
             }
         }
 
-        private void MessageRecevier_DoWork(object sender, DoWorkEventArgs e)
-        {
-            
-        }
 
-        String[] gameBoard = new string[9];
-        int currentTurn = 0;
-        private char PlayerChar;
-        private char OpponentChar;
-        private Socket socket;
-        private BackgroundWorker MessageRecevier = new BackgroundWorker();
-        private TcpListener server = null;
-        private TcpClient client;
-
-        public String returnSymbol(int turn)
+        private void MessageReceiver_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (turn % 2 == 0)
+            if (CheckState())
             {
-                return "O";
+                return;
             }
-            else
+            FreezeBoard();
+            lblTurn.Text = "Opponent's Turn!";
+            ReceiveMove();
+            lblTurn.Text = "Your Trun!";
+            if (!CheckState())
             {
-                return "X";
+                UnfreezeBoard();
             }
         }
 
 
         private bool CheckState()
         {
-            if (btn1.Text == btn2.Text && btn2.Text == btn3.Text && btn3.Text != "")
+            if (CheckHorizontal() || CheckVertical() || CheckDiagonal() || CheckDraw())
             {
-                if (btn1.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                return true;
-            }
-            if (btn4.Text == btn5.Text && btn5.Text == btn6.Text && btn6.Text != "")
-            {
-                if (btn4.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                return true;
-            }
-            if (btn7.Text == btn8.Text && btn8.Text == btn9.Text && btn9.Text != "")
-            {
-                if (btn7.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                return true;
-            }
-
-            if (btn1.Text == btn4.Text && btn4.Text == btn7.Text && btn7.Text != "")
-            {
-                if (btn1.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                return true;
-            }
-            if (btn2.Text == btn5.Text && btn5.Text == btn8.Text && btn8.Text != "")
-            {
-                if (btn2.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                return true;
-            }
-            if (btn3.Text == btn6.Text && btn6.Text == btn9.Text && btn9.Text != "")
-            {
-                if (btn3.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                return true;
-            }
-
-            if (btn1.Text == btn5.Text && btn5.Text == btn9.Text && btn9.Text != "")
-            {
-                if (btn1.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                return true;
-            }
-            if (btn3.Text == btn5.Text && btn5.Text == btn7.Text && btn7.Text != "")
-            {
-                if (btn3.Text[0] == PlayerChar)
-                {
-                    MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MessageBox.Show("You lost!", "Good luck next time", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
                 return true;
             }
             return false;
         }
 
 
-        public bool CheckButtons()
+        private bool CheckHorizontal()
         {
-            
-        }
-
-
-        public void checkForWinner()
-        {
-            for (int i = 0; i < 8; i++)
+            if ((btn1.Text == btn2.Text && btn2.Text == btn3.Text && btn3.Text != "") ||
+                (btn4.Text == btn5.Text && btn5.Text == btn6.Text && btn6.Text != "") ||
+                (btn7.Text == btn8.Text && btn8.Text == btn9.Text && btn9.Text != ""))
             {
-                String combination = "";
-
-                switch(i)
-                {
-                    case 0:
-                        combination = gameBoard[0] + gameBoard[4] + gameBoard[8];
-                        break;
-                    case 1:
-                        combination = gameBoard[2] + gameBoard[4] + gameBoard[6];
-                        break;
-                    case 2:
-                        combination = gameBoard[0] + gameBoard[1] + gameBoard[2];
-                        break;
-                    case 3:
-                        combination = gameBoard[3] + gameBoard[4] + gameBoard[5];
-                        break;
-                    case 4:
-                        combination = gameBoard[6] + gameBoard[7] + gameBoard[8];
-                        break;
-                    case 5:
-                        combination = gameBoard[0] + gameBoard[3] + gameBoard[6];
-                        break;
-                    case 6:
-                        combination = gameBoard[1] + gameBoard[4] + gameBoard[7];
-                        break;
-                    case 7:
-                        combination = gameBoard[2] + gameBoard[5] + gameBoard[8];
-                        break;
-                }
-
-                if (combination.Equals("OOO"))
-                {
-                    MessageBox.Show("O has won the game!","We have a winner!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                } 
-                else if (combination.Equals("XXX"))
-                {
-                    MessageBox.Show("X has won the game!", "We have a winner!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                checkDraw();
+                MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return true;
             }
+            return false;
         }
 
-        public void reset()
+        private bool CheckVertical()
+        {
+            if ((btn1.Text == btn4.Text && btn4.Text == btn7.Text && btn7.Text != "") ||
+                (btn2.Text == btn5.Text && btn5.Text == btn8.Text && btn8.Text != "") ||
+                (btn3.Text == btn6.Text && btn6.Text == btn9.Text && btn9.Text != ""))
+            {
+                MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return true;
+            }
+            return false;
+        }
+
+
+        private bool CheckDiagonal()
+        {
+            if ((btn1.Text == btn5.Text && btn5.Text == btn9.Text && btn9.Text != "") ||
+                (btn3.Text == btn5.Text && btn5.Text == btn7.Text && btn7.Text != ""))
+            {
+                MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return true;
+            }
+            return false;
+        }
+
+
+        private bool CheckDraw()
+        {
+            if (btn1.Text != "" && btn2.Text != "" && btn3.Text != "" &&
+                btn4.Text != "" && btn5.Text != "" && btn6.Text != "" &&
+                btn7.Text != "" && btn8.Text != "" && btn9.Text != "")
+            {
+                MessageBox.Show("It's draw!", "No winners", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return true;
+            }
+            return false;
+        }
+
+
+        public void UnfreezeBoard()
         {
             foreach (Control control in Controls)
             {
@@ -239,23 +142,16 @@ namespace TicTacToeGame
                     btn.Enabled = true;
                 }
             }
-            gameBoard = new string[9];
-            currentTurn = 0;
         }
 
-        public void checkDraw()
-        {
-            int counter = 0;
-            for (int i = 0; i < gameBoard.Length; i++)
-            {
-                if (gameBoard[i] != null)
-                {
-                    counter++;
-                }
 
-                if (counter == 9)
+        public void FreezeBoard()
+        {
+            foreach (Control control in Controls)
+            {
+                if (control is Button btn)
                 {
-                    MessageBox.Show("It's draw!", "No winner in this match", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    btn.Enabled = false;
                 }
             }
         }
@@ -263,93 +159,74 @@ namespace TicTacToeGame
 
         private void btn1_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[0] = returnSymbol(currentTurn);
-            btn1.Text= gameBoard[0];
-            btn1.Enabled= false;
-            checkForWinner();
+            byte[] num = { 1 };
+            socket.Send(num);
+            btn1.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[1] = returnSymbol(currentTurn);
-            btn2.Text = gameBoard[1];
-            btn2.Enabled = false;
-            checkForWinner();
+            byte[] num = { 2 };
+            socket.Send(num);
+            btn2.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[2] = returnSymbol(currentTurn);
-            btn3.Text = gameBoard[2];
-            btn3.Enabled = false;
-            checkForWinner();
+            byte[] num = { 3 };
+            socket.Send(num);
+            btn3.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[3] = returnSymbol(currentTurn);
-            btn4.Text = gameBoard[3];
-            btn4.Enabled = false;
-            checkForWinner();
+            byte[] num = { 4 };
+            socket.Send(num);
+            btn4.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[4] = returnSymbol(currentTurn);
-            btn5.Text = gameBoard[4];
-            btn5.Enabled = false;
-            checkForWinner();
+            byte[] num = { 5 };
+            socket.Send(num);
+            btn5.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[5] = returnSymbol(currentTurn);
-            btn6.Text = gameBoard[5];
-            btn6.Enabled = false;
-            checkForWinner();
+            byte[] num = { 6 };
+            socket.Send(num);
+            btn6.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[6] = returnSymbol(currentTurn);
-            btn7.Text = gameBoard[6];
-            btn7.Enabled = false;
-            checkForWinner();
+            byte[] num = { 7 };
+            socket.Send(num);
+            btn7.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[7] = returnSymbol(currentTurn);
-            btn8.Text = gameBoard[7];
-            btn8.Enabled = false;
-            checkForWinner();
+            byte[] num = { 8 };
+            socket.Send(num);
+            btn8.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[8] = returnSymbol(currentTurn);
-            btn9.Text = gameBoard[8];
-            btn9.Enabled = false;
-            checkForWinner();
-        }
-
-        private void GameBoard_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            reset();
+            byte[] num = { 9 };
+            socket.Send(num);
+            btn9.Text = PlayerChar.ToString();
+            MessageReceiver.RunWorkerAsync();
         }
 
         private void ReceiveMove()
@@ -368,7 +245,23 @@ namespace TicTacToeGame
                     index++;
                 }
             }
+        }
 
+
+        private void GameBoard_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void GameBoard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageReceiver.WorkerSupportsCancellation = true;
+            MessageReceiver.CancelAsync();
+            if (server != null)
+            {
+                server.Stop();
+            }
         }
     }
 }

@@ -19,3 +19,4 @@ C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacTo
 C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.CoreCompileInputs.cache
 C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.exe
 C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.pdb
+C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.ConnectWindow.resources
