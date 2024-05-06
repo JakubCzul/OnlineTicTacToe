@@ -37,7 +37,6 @@ namespace TicTacToeGame
                     server = new TcpListener(System.Net.IPAddress.Any, 8080);
                     server.Start();
                     socket = server.AcceptSocket(); // Tu jest blad
-                    MessageReceiver.RunWorkerAsync();
                 }
                 else
                 {
@@ -73,7 +72,7 @@ namespace TicTacToeGame
             FreezeBoard();
             lblTurn.Text = "Opponent's Turn!";
             ReceiveMove();
-            lblTurn.Text = "Your Trun!";
+            lblTurn.Text = "Your Turn!";
             if (!CheckState())
             {
                 UnfreezeBoard();
@@ -247,7 +246,7 @@ namespace TicTacToeGame
             {
                 if (control is Button btn && index < 9)
                 {
-                    if (buffer[index] == 1)
+                    if (buffer[0] == index)
                     {
                         btn.Text = OpponentChar.ToString();
                     }
@@ -258,6 +257,7 @@ namespace TicTacToeGame
 
         private void GameBoard_FormClosing(object sender, FormClosingEventArgs e)
         {
+            MessageReceiver.WorkerSupportsCancellation = true;
             MessageReceiver.CancelAsync();
             if (server != null)
             {
