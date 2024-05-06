@@ -31,7 +31,7 @@ namespace TicTacToeGame
 
         private void btnHost_Click(object sender, EventArgs e)
         {
-            GameBoard newGame = new GameBoard(true);
+            GameBoard newGame = new GameBoard(true, txtIP.Text);
             Visible = false;
             if (!newGame.IsDisposed) 
             {
