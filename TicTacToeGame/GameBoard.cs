@@ -28,29 +28,38 @@ namespace TicTacToeGame
             MessageReceiver.DoWork += MessageReceiver_DoWork;
             CheckForIllegalCrossThreadCalls = false;
 
-            if (isHost)
+            try
             {
-                PlayerChar = 'X';
-                OpponentChar = 'O';
-                server = new TcpListener(System.Net.IPAddress.Any, 5732);
-                server.Start();
-                socket = server.AcceptSocket();
-            }
-            else
-            {
-                PlayerChar = 'O';
-                OpponentChar = 'X';
-                try
+                if (isHost)
                 {
-                    client = new TcpClient(ip, 5732);
+                    PlayerChar = 'X';
+                    OpponentChar = 'O';
+                    server = new TcpListener(System.Net.IPAddress.Any, 8080);
+                    server.Start();
+                    socket = server.AcceptSocket(); // Tu jest blad
+                    MessageReceiver.RunWorkerAsync();
+                }
+                else
+                {
+                    if (ip == null)
+                    {
+                        MessageBox.Show("IP address cannot be null.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Close(); // Zamknij formularz, jeśli brakuje adresu IP
+                        return; // Przerwij dalsze wykonywanie konstruktora
+                    }
+
+                    PlayerChar = 'O';
+                    OpponentChar = 'X';
+                    client = new TcpClient();
+                    client.Connect(ip, 8080);
                     socket = client.Client;
                     MessageReceiver.RunWorkerAsync();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    Close();
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close(); // Zamknij formularz w przypadku wystąpienia błędu
             }
         }
 
@@ -247,16 +256,8 @@ namespace TicTacToeGame
             }
         }
 
-
-        private void GameBoard_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
         private void GameBoard_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MessageReceiver.WorkerSupportsCancellation = true;
             MessageReceiver.CancelAsync();
             if (server != null)
             {

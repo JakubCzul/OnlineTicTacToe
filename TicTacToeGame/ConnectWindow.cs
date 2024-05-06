@@ -20,6 +20,7 @@ namespace TicTacToeGame
         private void btnConnect_Click(object sender, EventArgs e)
         {
             GameBoard newGame = new GameBoard(false, txtIP.Text);
+            
             Visible = false;
             if (!newGame.IsDisposed)
             {

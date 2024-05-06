@@ -169,7 +169,7 @@
             this.Name = "GameBoard";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GameBoard_FormClosing);
-            this.Load += new System.EventHandler(this.GameBoard_Load);
+           // this.Load += new System.EventHandler(this.GameBoard_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

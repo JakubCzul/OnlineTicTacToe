@@ -20,3 +20,15 @@ C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacTo
 C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.exe
 C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.pdb
 C:\Users\macie\Documents\GitHub\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.ConnectWindow.resources
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\bin\Debug\TicTacToeGame.exe.config
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\bin\Debug\TicTacToeGame.exe
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\bin\Debug\TicTacToeGame.pdb
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.AssemblyReference.cache
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.SuggestedBindingRedirects.cache
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.ConnectWindow.resources
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.GameBoard.resources
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.Properties.Resources.resources
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.GenerateResource.cache
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.csproj.CoreCompileInputs.cache
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.exe
+C:\Users\kubac\Documents\GitHub\Qt\Kolos\OnlineTicTacToe\TicTacToeGame\obj\Debug\TicTacToeGame.pdb
