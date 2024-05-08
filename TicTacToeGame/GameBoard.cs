@@ -20,6 +20,7 @@ namespace TicTacToeGame
         private BackgroundWorker MessageReceiver = new BackgroundWorker();
         private TcpListener server = null;
         private TcpClient client;
+        private static bool playerTurn = false;
 
 
         public GameBoard(bool isHost, string ip = null)
@@ -27,7 +28,7 @@ namespace TicTacToeGame
             InitializeComponent();
             MessageReceiver.DoWork += MessageReceiver_DoWork;
             CheckForIllegalCrossThreadCalls = false;
-
+            btnRESET.Enabled = false;
             try
             {
                 if (isHost)
@@ -36,15 +37,15 @@ namespace TicTacToeGame
                     OpponentChar = 'O';
                     server = new TcpListener(System.Net.IPAddress.Any, 8080);
                     server.Start();
-                    socket = server.AcceptSocket(); // Tu jest blad
+                    socket = server.AcceptSocket();
                 }
                 else
                 {
                     if (ip == null)
                     {
                         MessageBox.Show("IP address cannot be null.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Close(); // Zamknij formularz, jeśli brakuje adresu IP
-                        return; // Przerwij dalsze wykonywanie konstruktora
+                        Close();
+                        return;
                     }
 
                     PlayerChar = 'O';
@@ -58,7 +59,7 @@ namespace TicTacToeGame
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close(); // Zamknij formularz w przypadku wystąpienia błędu
+                Close();
             }
         }
 
@@ -82,7 +83,23 @@ namespace TicTacToeGame
 
         private bool CheckState()
         {
-            if (CheckHorizontal() || CheckVertical() || CheckDiagonal() || CheckDraw())
+            playerTurn = !playerTurn;
+            if (CheckHorizontal() || CheckVertical() || CheckDiagonal())
+            {
+                if (playerTurn == true) 
+                {
+                    FreezeBoard();
+                    MessageBox.Show($"The winner is {PlayerChar} "); 
+                }
+                else 
+                {
+                    FreezeBoard(); 
+                    MessageBox.Show($"The winner is {OpponentChar} "); 
+                }
+                btnRESET.Enabled = true;
+                return true;
+            }
+            else if (CheckDraw())
             {
                 return true;
             }
@@ -96,7 +113,6 @@ namespace TicTacToeGame
                 (btn4.Text == btn5.Text && btn5.Text == btn6.Text && btn6.Text != "") ||
                 (btn7.Text == btn8.Text && btn8.Text == btn9.Text && btn9.Text != ""))
             {
-                MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return true;
             }
             return false;
@@ -108,7 +124,6 @@ namespace TicTacToeGame
                 (btn2.Text == btn5.Text && btn5.Text == btn8.Text && btn8.Text != "") ||
                 (btn3.Text == btn6.Text && btn6.Text == btn9.Text && btn9.Text != ""))
             {
-                MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return true;
             }
             return false;
@@ -120,7 +135,6 @@ namespace TicTacToeGame
             if ((btn1.Text == btn5.Text && btn5.Text == btn9.Text && btn9.Text != "") ||
                 (btn3.Text == btn5.Text && btn5.Text == btn7.Text && btn7.Text != ""))
             {
-                MessageBox.Show("You won!", "Well played", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return true;
             }
             return false;
@@ -146,8 +160,11 @@ namespace TicTacToeGame
             {
                 if (control is Button btn)
                 {
-                    btn.Text = "";
                     btn.Enabled = true;
+                    if(btn.Text != "")
+                    {
+                        btn.Enabled = false;
+                    }
                 }
             }
         }
@@ -160,6 +177,7 @@ namespace TicTacToeGame
                 if (control is Button btn)
                 {
                     btn.Enabled = false;
+
                 }
             }
         }
@@ -167,91 +185,128 @@ namespace TicTacToeGame
 
         private void btn1_Click(object sender, EventArgs e)
         {
-            byte[] num = { 1 };
-            socket.Send(num);
-            btn1.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn1.Text == "")
+            {
+                byte[] num = { 1 };
+                socket.Send(num);
+                btn1.Text = PlayerChar.ToString();
+                btn1.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            byte[] num = { 2 };
-            socket.Send(num);
-            btn2.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn2.Text == "")
+            {
+                byte[] num = { 2 };
+                socket.Send(num);
+                btn2.Text = PlayerChar.ToString();
+                btn2.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
-            byte[] num = { 3 };
-            socket.Send(num);
-            btn3.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn3.Text == "")
+            {
+                byte[] num = { 3 };
+                socket.Send(num);
+                btn3.Text = PlayerChar.ToString();
+                btn3.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            byte[] num = { 4 };
-            socket.Send(num);
-            btn4.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn4.Text == "")
+            {
+                byte[] num = { 4 };
+                socket.Send(num);
+                btn4.Text = PlayerChar.ToString();
+                btn4.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
-            byte[] num = { 5 };
-            socket.Send(num);
-            btn5.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn5.Text == "")
+            {
+                byte[] num = { 5 };
+                socket.Send(num);
+                btn5.Text = PlayerChar.ToString();
+                btn5.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
-            byte[] num = { 6 };
-            socket.Send(num);
-            btn6.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn6.Text == "")
+            {
+                byte[] num = { 6 };
+                socket.Send(num);
+                btn6.Text = PlayerChar.ToString();
+                btn6.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
-            byte[] num = { 7 };
-            socket.Send(num);
-            btn7.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn7.Text == "")
+            {
+                byte[] num = { 7 };
+                socket.Send(num);
+                btn7.Text = PlayerChar.ToString();
+                btn7.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
-            byte[] num = { 8 };
-            socket.Send(num);
-            btn8.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn8.Text == "")
+            {
+                byte[] num = { 8 };
+                socket.Send(num);
+                btn8.Text = PlayerChar.ToString();
+                btn8.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
-            byte[] num = { 9 };
-            socket.Send(num);
-            btn9.Text = PlayerChar.ToString();
-            MessageReceiver.RunWorkerAsync();
+            if (btn9.Text == "")
+            {
+                byte[] num = { 9 };
+                socket.Send(num);
+                btn9.Text = PlayerChar.ToString();
+                btn9.Enabled = false;
+                MessageReceiver.RunWorkerAsync();
+            }
         }
 
         private void ReceiveMove()
         {
             byte[] buffer = new byte[1];
             socket.Receive(buffer);
-            int index = 0;
-            foreach (Control control in Controls)
+            int index = buffer[0];
+            UpdateButton(index);
+            UnfreezeBoard();
+        }
+
+        private void UpdateButton(int index)
+        {
+            Control control = Controls.Find($"btn{index}", true).FirstOrDefault();
+            if (control is Button btn)
             {
-                if (control is Button btn && index < 9)
-                {
-                    if (buffer[0] == index)
-                    {
-                        btn.Text = OpponentChar.ToString();
-                    }
-                    index++;
-                }
+                btn.Text = OpponentChar.ToString();
+                btn.Enabled = false;
             }
         }
 
@@ -263,6 +318,30 @@ namespace TicTacToeGame
             {
                 server.Stop();
             }
+        }
+
+        private void btnRESET_Click(object sender, EventArgs e)
+        {
+            foreach (Control control in Controls)
+            {
+                if (control is Button btn)
+                {
+                    if (btn.Text == "Reset")
+                    {
+                        btnRESET.Enabled = false;
+                    }
+                    else
+                    {
+                        btn.Enabled = true;
+                        btn.Text = "";
+                    }
+                }
+            }
+
+            UnfreezeBoard();
+            lblTurn.Text = "Your Turn!";
+            MessageReceiver.RunWorkerAsync();
+
         }
     }
 }
