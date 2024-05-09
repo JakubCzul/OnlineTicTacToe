@@ -94,7 +94,8 @@ namespace TicTacToeGame
                 else 
                 {
                     FreezeBoard(); 
-                    MessageBox.Show($"The winner is {OpponentChar} "); 
+                    MessageBox.Show($"The winner is {OpponentChar} ");
+                    
                 }
                 btnRESET.Enabled = true;
                 return true;
@@ -322,26 +323,11 @@ namespace TicTacToeGame
 
         private void btnRESET_Click(object sender, EventArgs e)
         {
-            foreach (Control control in Controls)
+            DialogResult result = MessageBox.Show($"You are a loser there is no going back in real life,", "there is no soft game.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.OK)
             {
-                if (control is Button btn)
-                {
-                    if (btn.Text == "Reset")
-                    {
-                        btnRESET.Enabled = false;
-                    }
-                    else
-                    {
-                        btn.Enabled = true;
-                        btn.Text = "";
-                    }
-                }
+                Application.Exit();
             }
-
-            UnfreezeBoard();
-            lblTurn.Text = "Your Turn!";
-            MessageReceiver.RunWorkerAsync();
-
         }
     }
 }
